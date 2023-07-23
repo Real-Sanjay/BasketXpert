@@ -4,7 +4,19 @@ import numpy as np
 import plotly.express as px
 from mlxtend.preprocessing import TransactionEncoder
 from mlxtend.frequent_patterns import fpgrowth, association_rules
+
 @st.cache_data
+st.set_page_config(
+    page_title="Market Basket Analysis",
+    page_icon="😂",
+    layout="wide",
+    initial_sidebar_state="expanded",
+    menu_items={
+        'Get Help': 'https://www.extremelycoolapp.com/help',
+        'Report a bug': "https://www.extremelycoolapp.com/bug",
+        'About': "# This is a header. This is an *extremely* cool app!"
+    }
+)
 
 
 def preprocess_data(data):
