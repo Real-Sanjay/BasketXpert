@@ -4,7 +4,8 @@ import numpy as np
 import plotly.express as px
 from mlxtend.preprocessing import TransactionEncoder
 from mlxtend.frequent_patterns import fpgrowth, association_rules
-@chache_data
+@st.cache_data
+
 
 def preprocess_data(data):
     # Gather All Items of Each Transactions into Numpy Array
