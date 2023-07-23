@@ -5,7 +5,6 @@ import plotly.express as px
 from mlxtend.preprocessing import TransactionEncoder
 from mlxtend.frequent_patterns import fpgrowth, association_rules
 
-@st.cache_data
 st.set_page_config(
     page_title="Market Basket Analysis",
     page_icon="😂",
