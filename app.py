@@ -1,90 +1,201 @@
 import streamlit as st
 import pandas as pd
+import time
+from matplotlib import pyplot as plt
 import numpy as np
-# import plotly.express as px
-from mlxtend.preprocessing import TransactionEncoder
-from mlxtend.frequent_patterns import fpgrowth, association_rules
+st.set_page_config(
+    page_title="Market Basket Analysis",
+    page_icon="😂",
+    layout="wide",
+    initial_sidebar_state="expanded",
+    menu_items={
+        'Get Help': 'https://www.extremelycoolapp.com/help',
+        'Report a bug': "https://www.extremelycoolapp.com/bug",
+        'About': "# This is a header. This is an *extremely* cool app!"
+    }
+)
+st.title("Welcome to Market basket data Miner")
+#st.title used to set title which is tile of page
 
-def preprocess_data(data):
-    # Gather All Items of Each Transactions into Numpy Array
-    transaction = []
-    for i in range(0, data.shape[0]):
-        for j in range(0, data.shape[1]):
-            transaction.append(data.values[i, j])
-    # Convert to numpy array
-    transaction = np.array(transaction)
-    # Transform them into a Pandas DataFrame
-    df = pd.DataFrame(transaction, columns=["items"])
-    # Put 1 to each item for making a countable table
-    df["incident_count"] = 1
-    # Delete NaN items from the dataset
-    indexNames = df[df['items'] == "nan"].index
-    df.drop(indexNames, inplace=True)
-    # Make a new appropriate Pandas DataFrame for visualizations
-    df_table = df.groupby("items").sum().sort_values("incident_count", ascending=False).reset_index()
+st.subheader("Please make sure you have transaction file in CSV format")
+#subheader used to show subheading
+st.header("upload here")
+#header is just geading to particular thing bigger than subheader
+st.text("Once uploades please click on submit to proceed")
+# text work exactly like paragraph in html
 
-    return df_table
+st.markdown("My first webapp :joy: " )#emoji for :happy:
+st.markdown("[Click here to go sanjaydh.com ](https://www.sanjaydh.com)")
+# We can use this type of html things to explore more go to  https://www.markdownguide.org/cheat-sheet/
+st.caption("Caption here")
+st.latex("hi")#to print maths equation like matrix and other check https://katex.org/docs/supported.html
+json ={"a":"1,2,3", "b":"4,5,6"}# used to write key value pairs
+st.json(json)#used to print in screen
+st.write("## H2")# used wite anyleements inside 
+# st.metric()used to write equation like windspeed 120ms-1(in superscriot)
+table = pd.DataFrame({"column1":[1,2,3,4,5],"column2":[5,6,7,8,9]})
+st.table(table)#table used to print table
+st.dataframe(table)# used to print dataframe with some asc, desc selection
 
-def main():
-    st.title("Apriori Frequent Itemset Mining Web App")
+# to import images, audio, and video
+# st.image(" "), st.audio(" "), st.video(" ")
 
-    # File upload
-    uploaded_file = st.file_uploader("Upload a CSV file", type=["csv"])
+#To remove hamburger(3lines) and footer that says made by streamlit
+# inspect 3lines locate class name copy and do this
 
-    if uploaded_file is not None:
-        # Read the CSV data
-        dataset = pd.read_csv(uploaded_file)
+# st.markdown("""
+    
+#     <style>
+# .css-1a1tcp.e1ewe7hr3
+# {
+#     visibility: hidden;
+# }
+# .css-h5rgaw.e1g8pov61
+# {
+#     visibility: hidden;
+# }
+# </style>
+# """,unsafe_allow_html=True)
 
-        # Display the columns and few rows using head
-        st.subheader("Columns and Few Rows of the Dataset")
-        st.dataframe(dataset.head())
 
-        # Data preprocessing
-        df_table = preprocess_data(dataset)
+#In Streamlit, checkboxes are interactive elements that allow users
+# to make binary choices. A checkbox is represented by a boolean 
+# variable, which can be either checked (True) or unchecked 
+# (False). Users can toggle the checkbox by clicking on it, 
+# and the app can respond to the user's choice based on the
+# state of the checkbox.
 
-        # Display the top 5 items
-        st.subheader("Top 5 Items")
-        st.dataframe(df_table.head(5).style.background_gradient(cmap='Blues'))
+# Create a checkbox
+checked = st.checkbox("Check me!")
 
-        # Create and display a Treemap using Plotly
-        st.subheader("Top 50 Items Treemap")
-        df_table["all"] = "Top 50 items"
-        fig = px.treemap(df_table.head(50), path=['all', "items"], values='incident_count',
-                         color=df_table["incident_count"].head(50), hover_data=['items'],
-                         color_continuous_scale='Blues')
-        st.plotly_chart(fig)
+# Respond to the user's choice
+if checked:
+    st.write("Checkbox is checked!")
+else:
+    st.write("Checkbox is unchecked!")
 
-        # Extract top 30 items and perform FP-Growth
-        first30 = df_table["items"].head(30).values
-        transaction = []
-        for i in range(dataset.shape[0]):
-            transaction.append([str(dataset.values[i, j]) for j in range(dataset.shape[1])])
-        transaction = np.array(transaction)
-        te = TransactionEncoder()
-        te_ary = te.fit(transaction).transform(transaction)
-        dataset_encoded = pd.DataFrame(te_ary, columns=te.columns_)
-        dataset_encoded = dataset_encoded.loc[:, first30]
+show_data = st.checkbox("Show Data")
 
-        # Perform FP-Growth
-        st.subheader("FP-Growth Algorithm")
-        min_support = st.slider("Minimum Support", min_value=0.05, max_value=0.5, step=0.01, value=0.1)
-        frequent_itemsets = fpgrowth(dataset_encoded, min_support=min_support, use_colnames=True)
+# Display data only when the checkbox is checked
+if show_data:
+    data = [1, 2, 3, 4, 5]
+    st.write("Here's the data:")
+    st.write(data)
+    
+    
+# def move():
+# #   print("Its dynamic")
+#     print(st.session.uniqueid)
+    
+# test = st.checkbox("che ck function", value=True, on_change=move, key="uniqueid")        
 
-        # Display the top frequent itemsets
-        st.subheader("Top Frequent Itemsets")
-        st.dataframe(frequent_itemsets.head(10))
+# rad = st.radio("Are you noob", options=("Yes", "No"))
+# #radio button can use properties like checkbutton above
+# def btnfun():
+#     print("you clicked me")
+# btn = st.button("Click me!", on_click=btnfun)
 
-        # Association Rules
-        st.subheader("Association Rules")
-        min_confidence = st.slider("Minimum Confidence", min_value=0.1, max_value=1.0, step=0.1, value=0.5)
-        rules = association_rules(frequent_itemsets, metric="confidence", min_threshold=min_confidence)
+# #button search your self
 
-        # Sort association rules based on confidence
-        sorted_rules = rules.sort_values("confidence", ascending=False)
+# slct = st.selectbox("whats your game",options=("coc","pubg","cod"))
 
-        # Display the top association rules based on confidence
-        st.subheader("Top Association Rules based on Confidence")
-        st.dataframe(sorted_rules)
+# mulslct = st.multiselect("whats your game",options=("coc","pubg","cod"))
 
-if __name__ == "__main__":
-    main()
+# st.write(mulslct)
+
+#slider widgets
+st.slider("Slider", min_value=1,max_value=10)
+
+# text input widget used to take few line of text
+st.text_input("Fill me", max_chars=10)
+
+#text area widget to take large text
+st.text_area("Enter most text", max_chars=100)
+
+# data and time widget to take ip of format time and date
+st.date_input("Select data")
+st.time_input("Slect time")
+
+
+st.markdown("---")
+# file uploader option
+#we can upload, image,video, files even multiple files
+
+upl = st.file_uploader("Upload your file", type=("jpg","png","mp4","csv"),accept_multiple_files=False)
+
+if upl is not None:
+    df = pd.read_csv(upl)
+
+        # Display the contents of the CSV file
+    st.subheader("Uploaded CSV File is:")
+    st.dataframe(df)
+    
+#creating forms in streamlit with "with" keyword
+#you can also use object to create form
+# with st.form("My form"):
+#      st.text_input("Name")
+#      st.form_submit_button("Submit")   
+     
+     
+#we can divide anyscreen in columns, lets divide form for eg
+# with st.form("My form"):
+#      c1,c2=st.columns(2)
+#      c1.text_input("Name")
+#      c2.text_input("Lname")
+#      st.text_input("email")
+#      st.text_input("password")
+#      st.form_submit_button("Submit")      
+
+#more custumization with forms
+# st.markdown("<h1 style='text-align:center;'>Form</h1>",unsafe_allow_html=True )
+# with st.form("My form", clear_on_submit=True):
+#      c1,c2=st.columns(2)
+#      fn =c1.text_input("Name")
+#      ln = c2.text_input("Lname")
+#      st.text_input("email")
+#      pas =st.text_input("password")
+#      day,mon,year = st.columns(3)
+#      day.text_input("day")
+#      mon.text_input("month")
+#      year.text_input("year")
+#      sub = st.form_submit_button("Submit")   
+#      if sub:
+#        if fn == "" and ln == "" and pas == "":
+#          st.warning("Please fill")
+#        else:
+#            st.success("Submitted!")
+
+#progress bar track progress of the task, can use while data is analyzing
+# bar = st.progress(100)#(value 0 represent bar is in 0, 50 is half , 75 is 1/4 100 is full)
+# # pro_stat = st.empty()
+# for i in range(100):
+#     bar.progress((i+1)*10)
+#     # pro_stat.write(str(i+1)+"%") we can show percentage with progress
+#     time.sleep(0.4) # to use time.sleep import time
+n = np.linspace(0,10,100)
+x = np.array([10,20,30,40,50])
+opt = st.sidebar.radio("Selct type of graph", options=("line","bar","h-bar"))
+if opt == "line":
+    st.markdown("<h1 style='text-align:center;'>line Graph</h1>", unsafe_allow_html=True)
+    fig = plt.figure()
+    plt.plot(n,np.sin(n))
+    plt.plot(n,np.cos(n),'--')
+    st.write(fig)
+    
+elif opt == "bar":
+    st.markdown("<h1 style='text-align:center;'>Bar Graph</h1>", unsafe_allow_html=True)
+    fig = plt.figure()
+    plt.plot(x,x*10)
+    plt.plot(x,x+10)
+    st.write(fig)
+elif opt == "h-bar":
+    st.markdown("<h1 style='text-align:center;'>H-bar Graph</h1>", unsafe_allow_html=True)
+    fig = plt.figure()
+    plt.plot(x*10,x)
+    plt.plot(x+10,x)
+    st.write(fig)
+    
+    #Notes: We can create user input from form eg webscarpper
+    #pil library used to build image editor
+    # st.number_input() used to take number as input
+    st.file_uploader("Upload", type="CSV",accept_multi_file=True)
