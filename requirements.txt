@@ -6,5 +6,5 @@ plotly.subplots
 plotly.express
 matplotlib.pyplot
 seaborn 
-mlxtend.frequent_patterns import association_rules, apriori, fpgrowth
+mlxtend
 base64
