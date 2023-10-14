@@ -1,10 +1,8 @@
 streamlit
 pandas
 numpy
-plotly.graph_objects
-plotly.subplots
-plotly.express
-matplotlib.pyplot
-seaborn 
+plotly
+matplotlib
+seaborn
 mlxtend
 base64
