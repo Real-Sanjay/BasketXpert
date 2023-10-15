@@ -207,8 +207,8 @@ elif tab == "Descriptive Data Analytics":
             plt.figure(figsize=(10, 8))
             sns.barplot(y=most_reordered_items.values, x=most_reordered_items.index, palette="viridis")
             plt.title("Top 10 Most Reordered Items", size=16)
-            plt.xlabel("Count", size=12)
-            plt.ylabel("Item", size=12)
+            plt.xlabel("Item", size=12)
+            plt.ylabel("Count", size=12)
             plt.tight_layout()
             st.pyplot()  # Display the plot
         else:
@@ -242,8 +242,8 @@ elif tab == "Descriptive Data Analytics":
                 plt.figure(figsize=(12, 6))
                 data_temp = data_period_day[data_period_day["period_day"] == day_period.lower()].head(10)
                 sns.barplot(x=data_temp["Item"], y=data_temp["Transaction"],color=ourColor)
-                plt.xlabel("Transaction Count", size=12)
-                plt.ylabel("Item", size=12)
+                plt.xlabel("Item", size=12)
+                plt.ylabel("Transaction Count", size=12)
                 plt.title(f"Top 10 Most Ordered Items in {day_period}", size=16)
                 plt.tight_layout()
                 st.pyplot()  # Display the plot
