@@ -124,7 +124,7 @@ elif tab == "Descriptive Data Analytics":
                 # Plot the data using Streamlit
                 plt.figure(figsize=(8, 5))
                 sns.barplot(x=list(data_dict.keys()), y=list(data_dict.values()), color="#D5AAD3")
-                plt.xticks(size=12, rotation=-30)
+                plt.xticks(size=13, rotation=45)
                 plt.title("Total Transactions Every Month", size=16)
                 st.pyplot()  # Display the plot
 
@@ -151,7 +151,8 @@ elif tab == "Descriptive Data Analytics":
                     plt.xlabel('Days', size=15)
                     plt.ylabel('No of Orders', size=15)
                     plt.title('Number of Orders each Day', size=17)
-                    plt.xticks(size=13)
+                    plt.xticks(size=13, rotation=45)
+
                     # Display the plot using Streamlit
                     st.pyplot(plt) 
     
@@ -182,6 +183,7 @@ elif tab == "Descriptive Data Analytics":
                     plt.ylabel('No ofOrders', size=15)
                     plt.title('Number of Orders each Hour', size=17)
                     plt.xticks(size=13)
+
                     # Display the plot using Streamlit
                     st.pyplot(plt)   
 
@@ -208,6 +210,8 @@ elif tab == "Descriptive Data Analytics":
             sns.barplot(y=most_reordered_items.values, x=most_reordered_items.index, palette="viridis")
             plt.title("Top 10 Most Reordered Items", size=16)
             plt.xlabel("Item", size=12)
+            plt.xticks(size=13, rotation=45)
+
             plt.ylabel("Count", size=12)
             plt.tight_layout()
             st.pyplot()  # Display the plot
@@ -243,6 +247,8 @@ elif tab == "Descriptive Data Analytics":
                 data_temp = data_period_day[data_period_day["period_day"] == day_period.lower()].head(10)
                 sns.barplot(x=data_temp["Item"], y=data_temp["Transaction"],color=ourColor)
                 plt.xlabel("Item", size=12)
+                plt.xticks(size=13, rotation=45)
+
                 plt.ylabel("Transaction Count", size=12)
                 plt.title(f"Top 10 Most Ordered Items in {day_period}", size=16)
                 plt.tight_layout()
